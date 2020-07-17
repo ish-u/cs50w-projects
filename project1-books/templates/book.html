@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+{% block main %}
+<div class="container p-4">
+  <div class="row">
+    <div class="col" id="book_cover">
+          <img src="http://covers.openlibrary.org/b/isbn/{{book.isbn}}-L.jpg" alt="">
+          <div id="rating_bar">
+            <div><h6><b>Goodreads<br>({{review_counts}} reviews)</b></h6></div>
+            <div class="progress" style="height: 25px;">
+              <div class="progress-bar bg-danger" role="progressbar" style="width: {{(goodread_rating*100)/5}}%;" aria-valuenow="{{(goodread_rating*100)/5}}" aria-valuemin="0" aria-valuemax="100">
+                <span style="font-size: 16px;">{{goodread_rating}} / 5</span>
+              </div>
+            </div>
+          </div>
+    </div>
+    <div class="col" id="book_detail">
+      <div>
+        <span><b>{{book.title}}({{book.year}})</b></span>
+      </div>
+      <div>
+        <h3>-<em>{{book.author}}</em></h3>
+        <h6>   ISBN:{{book.isbn}}</h6>
+      </div>
+      <div id="book_description">
+        <p>{{description}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <div class="row justify-content-center">
+    <h3><u><b>Give Your Review</b></u></h3>
+  </div>
+  <div class="row justify-content-center" id="book_review">
+    <div class="form-container">
+      <form id="review" action={{ url_for('book', isbn = book.isbn ) }} method="post">
+        <div class="form-group">
+          <textarea name="review" from="review" placeholder="What do you think about the Book?" class="form-control" rows="4" cols="80"></textarea>
+        </div>
+        <div class="form-group">
+          <div class="row" style="text-align: center;">
+            <div class="col">
+              <input class="form-control" type="number" max="5" name="rating"  placeholder="Rate (out of 5):)">
+            </div>
+            <div class="col" >
+              <button type="submit" class="btn btn-dark" name="button">Submit</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  <div class="container p-5">
+    {% if reviews is not none %}
+      {% for review in reviews %}
+      <div class="row reviews">
+        <div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div style="margin-left: 10px; padding: 5px;">
+              <img src="{{avatars.robohash(review.username,size='50')}}" style="border:1px black solid; background-color: white !important;" alt="gravtar">
+            </div>
+            <div class="col" style="margin:auto;">
+              <h3><b>{{review.username}}</b></h3>
+            </div>
+          </div>
+          <div>
+            <h5><em>({{review.rating}}/5)</em></h5>
+            <p>{{review.review}}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+{% endblock %}

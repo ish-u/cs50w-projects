@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+{% block main %}
+<!--FontAwesome-->
+<script src="https://kit.fontawesome.com/a8b3325e41.js" crossorigin="anonymous"></script>
+<div class="search_tab container p-4">
+  <div class="search_text">
+    <div>
+      <span><b>"a reader lives a thousand lives before he dies."</b></span>
+    </div>
+    <div>
+      <h4>-George R.R. Martin</h4>
+    </div>
+  </div>
+
+  <form action="/search" method="post">
+    <div class="input-group">
+      <input type="text" class="form-control form-control-lg" name="search" autofill="off" autocomplete="off" placeholder="search a new book or an old friend ;)">
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-light btn-lg" name="button"><i class="fas fa-search"></i></button>
+      </div>
+    </div>
+  </form>
+
+  <div class="result">
+    {% if result%}
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>ISBN</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Year</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in result %}
+        <tr>
+          <td>{{a.isbn}}</td>
+          <td><a href= {{ url_for('book', isbn = a.isbn ) }}> {{a.title}}</a></td>
+          <td>{{a.author}}</td>
+          <td>{{a.year}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock %}

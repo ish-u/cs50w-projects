@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--GoogleFonts-->
+    <link href="https://fonts.googleapis.com/css?family=Muli&display" rel="stylesheet" />
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+    <!--CSS-->
+    <link type="text/css" rel="stylesheet" href="/static/style.css" />
+    <!--BootStrapJS-->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    
+    <title>infinitybookreview</title>
+
+  </head>
+
+  <body>
+      <!--nav-bar-->
+      <div id=nav>
+        <nav class="navbar fixed-top navbar-light navbar-expand-lg" style="background-color: #7BB9FF;">
+          <a class="navbar-brand" href="/"><span>infinity|book|reviews</span></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+              {% if session.user_id %}
+                <li class="nav-item"><a class="nav-link" href="/search">Search</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user">Your Reviews</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+              {% else %}
+              <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+              <li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
+              {% endif %}
+            </ul>
+          </div>
+        </nav>
+      </div>
+
+      <!--main-->
+      <main>
+        <div class="container p-5">
+          {% if get_flashed_messages() %}
+          <div class="alert alert-danger">
+            <strong>{{get_flashed_messages()[0]}}</strong>
+          </div>
+          {% endif %}
+          {% block main %}{% endblock %}
+        </div>
+      </main>
+
+  </body>
+</html>

@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block main %}
+<div class="container p-5">
+  <div class="row">
+    <div class="col" id="user_pic">
+      <div>
+        <img src="{{avatars.robohash(session["username"],size='200')}}" alt="profile pic" style="background-color:white;">
+      </div>
+      <div id="info" style="margin:0 auto;">
+        <h1>{{user_info.username}}</h1>
+        <h5>Name - {{user_info.name}}</h5>
+        <h5>e-mail - {{user_info.email}}</h5>
+      </div>
+    </div>
+    <div class="col" id="user_reviews">
+      {% for review in user_review %}
+      <div class="row reviews">
+        <div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div style="margin-left: 10px; padding: 5px;">
+              <img src="{{avatars.robohash(review.username,size='50')}}" style="border:1px black solid; background-color: white !important;" alt="gravtar">
+            </div>
+            <div class="col" style="margin:auto;">
+              <h3><b>{{review.username}}</b></h3>
+            </div>
+          </div>
+          <div>
+            <h5><b>{{review.title}} ({{review.rating}}/5)</b></h5>
+            <p>{{review.review}}</p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}</div>
+  </div>
+
+</div>
+{% endblock %}

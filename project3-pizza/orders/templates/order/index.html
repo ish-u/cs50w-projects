@@ -1,0 +1,370 @@
+{% extends "layout/layout.html" %}
+{% load static %}
+{% block title%}
+Anmol's Pizzeria
+{% endblock %}
+{% block content %}
+<script>   
+    max_pizza_topping = '{{max_topping_pizza.no_of_toppings__max}}';
+</script>
+<script src="{% static 'orders/price.js' %}">
+</script>
+
+<style>
+    .row{
+        padding: 10px;
+        margin: 10px;
+    }
+    .col{
+        padding: 10px;
+        margin: 10px;
+    }
+    a{
+        color: black;
+        text-decoration: none !important;
+    }
+    a:hover{
+        color: black;
+        text-decoration: none !important;
+    }
+
+</style>
+{% if message %}
+{{message}}
+{% endif %}
+<div class="container" style="text-align: center;">
+
+    <div class="row">
+        <div class="col">
+            <a href="" data-toggle="modal" data-target="#pizzaModal">
+                <img src="{% static 'orders/pizza.png' %}" alt="pizza" style="padding: 10px;">
+                <br>
+                <h3>Pizza</h3>
+            </a>
+        </div>
+        <div class="col">
+            <a href="" data-toggle="modal" data-target="#subModal">
+                <img src="{% static 'orders/sub.png' %}" alt="sub" style="padding: 10px;">
+                <br>
+                <h3>Sub</h3>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a href="" data-toggle="modal" data-target="#pastaModal">
+                <img src="{% static 'orders/pasta.png' %}" alt="sub" style="padding: 10px;">
+                <br>
+                <h3>Pasta</h3>
+            </a>
+        </div>
+        <div class="col">
+            <a href="" data-toggle="modal" data-target="#saladModal">
+                <img src="{% static 'orders/salad.png' %}" alt="sub" style="padding: 10px;">
+                <br>
+                <h3>Salad</h3>
+            </a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <a href="" data-toggle="modal" data-target="#platterModal">
+                <img src="{% static 'orders/platter.png' %}" alt="sub" style="padding: 10px;">
+                <br>
+                <h3>Dinner Platter</h3>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+
+<!--Pizza Modal -->
+<div class="modal fade" id="pizzaModal" tabindex="-1" role="dialog" aria-labelledby="pizzaModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pizzaModalLabel">
+                    <h3>Pizza🍕</h3>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="pizza_close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="pizza_form" action="{% url 'pizza_order' %}" method="post">
+                <div class="modal-body">
+                    <!--PIZZA ORDER DIV-->
+                    <div id="Pizza">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <select class="form-control" id="pizza_type" name="pizza_type" required>
+                                <option value="NONE" disabled selected>SELECT CRUST</option>
+                                {% for type in pizza_type %}
+                                <option class="dropdown-item" value="{{type.pizza_type}}">{{type.pizza_type}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="pizza_size" name="pizza_size" required>
+                                <option value="NONE" disabled selected>SELECT SIZE</option>
+                                {% for size in size %}
+                                <option value="{{size.size}}">{{size.size}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group" style="max-height:150px; overflow-y:scroll;">
+                            {% for t in topping %}
+                            <div class="form-check">
+                                <input disabled class="form-check-input" type="checkbox" value="{{t.id}}" name="topping">
+                                <label class="form-check-label" for="defaultCheck1">
+                                    {{t.name}}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <h5>Price : $<span id="pizza_price">0</span></h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#specialModal">
+                        ! SPECIAL PIZZA !
+                      </button>
+                    <button class="btn btn-primary" id="pizza_cart" disabled>Add To Cart</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--Sub Modal-->
+<div class="modal fade" id="subModal" tabindex="-1" role="dialog" aria-labelledby="subModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="subModalLabel">
+                    <h3>Sub🥪</h3>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="sub_close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="sub_form" action="{% url 'sub_order' %}" method="post">
+                <div class="modal-body">
+                    <!--SUB ORDER DIV-->
+                    <div id="Sub">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <select class="form-control" name="sub_size" id="sub_size">
+                                <option value="NONE" disabled selected>SELECT SIZE</option>
+                                {% for size in size %}
+                                <option class="dropdown-item" value="{{size.size}}">{{size.size}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select id="sub_name" name="sub_name" class="form-control">
+                                <option value="NONE" disabled selected>SELECT SUB</option>
+                                {% for name in sub_name %}
+                                <option value="{{name.name}}">{{name.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group" style="max-height:150px; overflow-y:scroll;">
+                            {% for t in topping %}
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="{{t.id}}" name="sub_topping" disabled>
+                                <label class="form-check-label" for="defaultCheck1">
+                                    {{t.name}}
+                                </label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="1" id="extra_cheese" name="extra_cheese" disabled>
+                                <label class="form-check-label" for="defaultCheck1">
+                                    Extra Chesse
+                                </label>
+                            </div>
+                        </div>
+                        <h5>Price: $<span id="sub_price">0</span></h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" id="sub_cart" disabled>Add To Cart</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<!-- Pasta Modal -->
+<div class="modal fade" id="pastaModal" tabindex="-1" role="dialog" aria-labelledby="pastaModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="pastaModalLabel">
+                    <h3>Pasta🍝</h3>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="pasta_close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="pasta_form" action="{% url 'pasta_order' %}" method="post">
+                <div class="modal-body">
+                    <!--PASTA ORDER DIV-->
+                    <div>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <select class="form-control" name="pasta_name" id="pasta_name">
+                                <option value="NONE" disabled selected>SELECT PATSA</option>
+                                {% for name in pasta_name %}
+                                <option value="{{name.name}}">{{name.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <h5>Price: $<span id="pasta_price">0</span></h5>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="pasta_cart" disabled>Add To Cart</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--SALAD MODAL-->
+<div class="modal fade" id="saladModal" tabindex="-1" role="dialog" aria-labelledby="saladModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="saladModalLabel">
+                    <h3>Salad🥗</h3>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="salad_close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="salad_form" action="{% url 'salad_order' %}" method="post">
+                <div class="modal-body">
+                    <!--SALAD ORDER DIV-->
+                    <div>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <select class="form-control" name="salad_name" id="salad_name">
+                                <option value="NONE" disabled selected>SELECT SALAD</option>
+                                {% for name in salad_name %}
+                                <option value="{{name.name}}">{{name.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <h4>Price: $<span id="salad_price">0</span></h4>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="salad_cart" disabled>Add To Cart</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!--PLATTER MODAL-->
+<div class="modal fade" id="platterModal" tabindex="-1" role="dialog" aria-labelledby="platterModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <h3>Dinner Platter🍽️</h3>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="platter_close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="platter_form" action="{% url 'platter_order' %}" method="post">
+                <div class="modal-body">
+                    <!--DINNER PLATTER DIV-->
+                    <div>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <select name="platter_name" id="platter_name" class="form-control">
+                                <option value="NONE" disabled selected>SELECT PLATTER</option>
+                                {% for name in platter_name %}
+                                <option value="{{name.name}}">{{name.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select name="platter_size" id="platter_size" class="form-control">
+                                <option value="NONE" disabled selected>SELECT SIZE</option>
+                                {% for size in size %}
+                                <option value="{{size.size}}">{{size.size}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <h4>Price: $<span id="platter_price">0</span></h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" id="platter_cart"  disabled>Add To Cart</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="specialModal" tabindex="-1" role="dialog" aria-labelledby="specialModalLabel" aria-hidden="true">
+    <div class="modal-dialog " role="document" style="height: 500px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="specialModalLabel">🍕 SPECIAL PIZZA 🍕</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="{% url 'special' %}" method="post" id="special_form" >
+        {% csrf_token %}
+        <div class="modal-body">
+            <div class="form-group">
+                <em>GET A PIZZA WITH 5 RANDOM TOPPINGS</em>
+            </div>
+            <div class="form-group">
+                <select class="form-control" name="special_size" id="special_size">
+                    <option value="NONE" disabled selected>SELECT SIZE</option>
+                    {% for size in size %}
+                    <option value="{{size.size}}">{{size.size}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <select class="form-control" name="special_crust" id="special_crust" >
+                    <option value="NONE" disabled selected>SELECT CRUST</option>
+                    {% for type in pizza_type %}
+                    <option value="{{type.pizza_type}}">{{type.pizza_type}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <h4>Price: $<span id="special_price">0</span></h4>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">ORDER</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

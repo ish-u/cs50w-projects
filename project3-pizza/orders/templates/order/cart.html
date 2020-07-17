@@ -1,0 +1,201 @@
+{% extends "layout/layout.html" %}
+{% block title%}
+CART
+{% endblock%}
+{% load static %}
+{% block content %}
+<script src="{% static 'orders/cart.js' %}"></script>
+<style>
+    .box {
+        border: 2px black solid;
+        margin: 5px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .row {
+        padding: 5px;
+        margin: 5px;
+    }
+</style>
+<h3><span style="float: left;">🛒CART</span> <span id="subtotal" style="float: right;">SUBTOTAL: ${{subtotal}}</span></h3>
+<br>
+<hr>
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h4>PIZZA</h4>
+        <hr>
+    </div>
+    {% for pizza in pizza_order %}
+    {% if pizza.ordered is False %}
+    <div class="col-4 box">
+        <h5>🍕{{pizza.Pizza.pizza_type}} - {{pizza.Pizza.size}}<button type="button" value="{{pizza.id}}" class="close pizza_close" aria-label="Close"><span aria-hidden="true">&times;</span></button></h5>
+        <hr>
+        <h6>
+            Toppings :
+            {% for a in pizza.Toppings.all %}
+            {{a}}
+            {% endfor %}
+        </h6>
+        <h6>Price : ${{pizza.Price}}</h6>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<br>
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h4>SUB</h4>
+        <hr>
+    </div>
+    {% for sub in sub_order %}
+    {% if sub.ordered is False %}
+    <div class="col-4 box">
+        <h5>🥪{{sub.Subs.name}} - {{sub.Subs.size}}<button type="button" value="{{sub.id}}" class="close sub_close" aria-label="Close"><span aria-hidden="true">&times;</span></button></h5>
+        <hr>
+        <h6>
+            Toppings:
+            {% for a in sub.Toppings.all %}
+            {{a}}
+            {% endfor %}
+        </h6>
+        <h6>Extra-Cheese: {{sub.extra_cheese}}</h6>
+        <h6>Price: ${{sub.Price}}</h6>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+</div>
+<br>
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h4>PASTA</h4>
+        <hr>
+    </div>
+    {% for pasta in pasta_order %}
+    {% if pasta.ordered is False %}
+    <div class="col-4 box">
+        <h5>🍝{{pasta.Pasta.name}}<button type="button" value="{{pasta.id}}" class="close pasta_close" aria-label="Close"><span aria-hidden="true">&times;</span></button></h5>
+        <hr>
+        <h6>Price: ${{pasta.Price}}</h6>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<br>
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h4>SALAD</h4>
+        <hr>
+    </div>
+    {% for salad in salad_order %}
+    {% if salad.ordered is False %}
+    <div class="col-4 box">
+        <h5>🥗{{salad.Salad.name}}<button type="button" value="{{salad.id}}" class="close salad_close" aria-label="Close"><span aria-hidden="true">&times;</span></button></h5>
+        <hr>
+        <h6>Price: ${{salad.Price}}</h6>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<br>
+
+<div class="row justify-content-center">
+    <div class="col-12">
+        <h4>DINNER PLATTER</h4>
+        <hr>
+    </div>
+    {% for platter in platter_order %}
+    {% if platter.ordered is False %}
+    <div class="col-4 box">
+        <h5>🍽️{{platter.Platter.name}} - {{platter.Platter.size}}<button type="button" value="{{platter.id}}" class="close platter_close" aria-label="Close"><span aria-hidden="true">&times;</span></button></h5>
+        <hr>
+        <h6>Price: ${{platter.Price}}</h6>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+<div class="row">
+    <div class="col-12">
+        <form id="total" action="{% url 'order' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-dark form-control" {% if subtotal == 0 %}disabled{% endif %}> <h5>ORDER -${{subtotal}}</h5> </button>
+        </form>
+    </div>
+</div>
+<br>
+<br>
+
+<!--ORDERS-->
+<h3>ORDERS</h3>
+<hr>
+{% for order in orders reversed %}
+<div class="row box justify-content-center" style="padding:10px; margin:20px;">
+
+    <div class="col-12" >
+        <h4 >ORDER - #{{order.id}} ({% if order.status is True %}✔️DONE{% else %}⏲️PENDING{% endif %}) <span style="float: right;">PRICE:${{order.Price}}</span></h4>
+        <hr>
+    </div>
+    <!--PIZZA-->
+    {% for PizzaOrder in order.Pizza.all %}
+    <div class="col-3 box">
+        <h5>🍕{{PizzaOrder.Pizza.pizza_type}} - {{PizzaOrder.Pizza.size}}</h5>
+        <hr>
+        <h6>
+            Toppings:
+            {% for a in PizzaOrder.Toppings.all %}
+            {{a}}
+            {% endfor %}
+        </h6>
+        <h6>Price: ${{PizzaOrder.Price}}</h6>
+    </div>
+    {% endfor %}
+
+    <!--SUB-->
+    {% for SubOrder in order.Subs.all %}
+    <div class="col-3 box">
+        <h5>🥪{{SubOrder.Subs.name}} - {{SubOrder.Subs.size}}</h5>
+        <hr>
+        <h6>
+            Toppings:
+            {% for a in SubOrder.Toppings.all %}
+            {{a}}
+            {% endfor %}
+        </h6>
+        <h6>Extra-Cheese: {% if SubOrder.extra_cheese is False %}NO{% elif SubOrder.extra_cheese is True %}YES{% endif%}</h6>
+        <h6>Price: ${{SubOrder.Price}}</h6>
+    </div>
+    {% endfor %}
+
+    <!--PASTA-->
+    {% for PastaOrder in order.Pasta.all %}
+    <div class="col-3 box">
+        <h5>🍝{{PastaOrder.Pasta.name}}</h5>
+        <hr>
+        <h6>Price: ${{PastaOrder.Price}}</h6>
+    </div>
+    {% endfor %}
+
+    <!--SALAD-->
+    {% for SaladOrder in order.Salad.all %}
+    <div class="col-3 box">
+        <h5>🥗{{SaladOrder.Salad.name}}</h5>
+        <hr>
+        <h6>Price: ${{SaladOrder.Price}}</h6>
+    </div>
+    {% endfor %}
+
+    <!--DINNER_PLATTER-->
+    {% for PlatterOrder in order.Platter.all %}
+    <div class="col-3 box">
+        <h5>🍽️{{PlatterOrder.Platter.name}} - {{PlatterOrder.Platter.size}}</h5>
+        <hr>
+        <h6>Price: ${{PlatterOrder.Price}}</h6>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "layout/layout.html" %}
+{% block title%}ORDERS{% endblock%}
+{% load static %}
+{% block content %}
+<style>
+    .box {
+        border: 2px black solid;
+        margin: 5px;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .row {
+        padding: 5px;
+        margin: 5px;
+    }
+</style>
+<script src="{% static 'orders/order.js' %}"></script>
+<!--ORDERS-->
+<h3>ORDERS</h3>
+<hr>
+{% for order in orders %}
+<div class="row box justify-content-center" style="padding:10px; margin:20px;">
+
+    <div class="col-12" >
+        <h4 >ORDER - #{{order.id}} <span style="float: right;">PRICE:${{order.Price}}</span></h4>
+        <hr>
+    </div>
+    <!--PIZZA-->
+    {% for PizzaOrder in order.Pizza.all %}
+    <div class="col-3 box">
+        <h5>🍕{{PizzaOrder.Pizza.pizza_type}} - {{PizzaOrder.Pizza.size}}</h5>
+        <hr>
+        <h6>
+            Toppings:
+            {% for a in PizzaOrder.Toppings.all %}
+            {{a}}
+            {% endfor %}
+        </h6>
+        <h6>Price: ${{PizzaOrder.Price}}</h6>
+    </div>
+    {% endfor %}
+
+    <!--SUB-->
+    {% for SubOrder in order.Subs.all %}
+    <div class="col-3 box">
+        <h5>🥪{{SubOrder.Subs.name}} - {{SubOrder.Subs.size}}</h5>
+        <hr>
+        <h6>
+            Toppings:
+            {% for a in SubOrder.Toppings.all %}
+            {{a}}
+            {% endfor %}
+        </h6>
+        <h6>Extra-Cheese: {% if SubOrder.extra_cheese is False %}NO{% elif SubOrder.extra_cheese is True %}YES{% endif%}</h6>
+        <h6>Price: ${{SubOrder.Price}}</h6>
+    </div>
+    {% endfor %}
+
+    <!--PASTA-->
+    {% for PastaOrder in order.Pasta.all %}
+    <div class="col-3 box">
+        <h5>🍝{{PastaOrder.Pasta.name}}</h5>
+        <hr>
+        <h6>Price: ${{PastaOrder.Price}}</h6>
+    </div>
+    {% endfor %}
+
+    <!--SALAD-->
+    {% for SaladOrder in order.Salad.all %}
+    <div class="col-3 box">
+        <h5>🥗{{SaladOrder.Salad.name}}</h5>
+        <hr>
+        <h6>Price: ${{SaladOrder.Price}}</h6>
+    </div>
+    {% endfor %}
+
+    <!--DINNER_PLATTER-->
+    {% for PlatterOrder in order.Platter.all %}
+    <div class="col-3 box">
+        <h5>🍽️{{PlatterOrder.Platter.name}} - {{PlatterOrder.Platter.size}}</h5>
+        <hr>
+        <h6>Price: ${{PlatterOrder.Price}}</h6>
+    </div>
+    {% endfor %}
+    <br>
+    <br>
+    <div class="col-10" style="padding: 10px;">
+        <button value="{{order.id}}" class="btn btn-outline-dark form-control complete"><h5>COMPLETE</h5></button>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}
