@@ -1,0 +1,18 @@
+{% extends "layout/layout.html" %}
+{% block title %}
+{{playlist.name}}
+{% endblock %}
+{% block content %}
+<style>
+html,body{
+        height: 100%;
+        margin: 0px;
+        padding: 0px;
+    }
+    .hero{
+        display: none;
+    }
+</style>
+    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{video_id}}?list={{playlist.playlist_id}};autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen >
+    </iframe>
+{% endblock %}

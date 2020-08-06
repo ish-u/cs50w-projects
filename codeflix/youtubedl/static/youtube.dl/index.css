@@ -1,0 +1,472 @@
+html, body {
+  height: 100%;
+  background: black;
+  color: white; }
+
+.nav-link {
+  font-size: 16px; }
+
+.hero {
+  height: 90%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative; }
+
+::-webkit-scrollbar {
+  display: none; }
+
+a {
+  text-decoration: none;
+  color: white; }
+
+a:hover {
+  text-decoration: none;
+  color: white; }
+
+#search {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  margin: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-left: 1px solid rgba(255, 255, 255, 0.5);
+  border-right: none; }
+
+#search:focus {
+  background-color: white;
+  color: black; }
+
+.nav-link {
+  color: white !important; }
+
+nav {
+  background-color: rgba(20, 20, 20, 0.5); }
+  nav li {
+    padding-right: 10px;
+    margin: auto; }
+  nav .navbar-brand {
+    font-size: x-large; }
+  nav .btn-outline-light {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: rgba(255, 255, 255, 0.5);
+    border-left: none; }
+
+@keyframes appear {
+  from {
+    opacity: 0; }
+  to {
+    opacity: 1; } }
+@keyframes disappear {
+  from {
+    opacity: 1; }
+  to {
+    opacity: 0; } }
+.container-fluid {
+  padding: 10px; }
+
+.thumb {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  padding: 10px;
+  margin: 5px;
+  max-height: 30vh;
+  height: 30vh;
+  display: flex;
+  flex-direction: column-reverse;
+  border: white solid 1px;
+  border-radius: 5px; }
+  .thumb div {
+    margin: auto; }
+    .thumb div h4 {
+      padding: 10px;
+      background-color: black;
+      border-radius: 5px; }
+
+.appear {
+  animation-name: appear;
+  animation-duration: 700ms; }
+
+.disappear {
+  animation-name: disappear;
+  animation-duration: 300ms; }
+
+#slider {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: grid;
+  position: relative;
+  max-height: 50vh;
+  height: 50vh;
+  scroll-margin: 20px; }
+
+.episodes, .title {
+  display: none;
+  max-height: 40vh;
+  height: 40vh;
+  margin-top: auto;
+  margin-bottom: auto; }
+
+.episodes {
+  margin-top: auto; }
+  .episodes h2, .episodes h6 {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: black;
+    color: white; }
+
+.title .title_heading {
+  height: inherit;
+  width: 40%; }
+  .title .title_heading div {
+    padding-left: 5%;
+    margin: 20px; }
+
+.buttonGroup {
+  max-height: 10vh;
+  margin: auto; }
+
+.episode_thumbnail {
+  max-width: 336px;
+  margin: auto;
+  padding: 1px;
+  border: 1px white solid; }
+
+.hero_details {
+  position: absolute;
+  margin: auto;
+  padding: 1vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center; }
+  .hero_details div {
+    margin: 2.5vh; }
+  .hero_details .hero_heading, .hero_details .hero_info {
+    padding: 3vh;
+    background-color: black;
+    border-radius: 20px; }
+  .hero_details .play_button {
+    text-align: center;
+    margin: auto; }
+    .hero_details .play_button i {
+      padding: 30px; }
+
+.category {
+  font-size: xx-large; }
+
+.list {
+  max-height: 40vh;
+  height: auto;
+  margin: auto;
+  padding: 10px; }
+  .list div {
+    height: auto;
+    margin: auto; }
+    .list div div {
+      padding: 10px;
+      border-radius: 5px;
+      background-color: black;
+      color: white; }
+  .list .col-4 i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    padding: 3vh;
+    transform: translate(-50%, -50%); }
+  .list .col-4 img {
+    width: 336px !important;
+    border-radius: 10px;
+    border: 1px solid white; }
+  .list .col-4:hover i {
+    color: black;
+    background-color: white;
+    border-radius: 50%; }
+
+.search_result {
+  justify-content: center; }
+  .search_result .col-3 {
+    border: white 2.5px solid; }
+
+.admin_list {
+  margin: auto;
+  padding: 10px; }
+  .admin_list div {
+    height: auto;
+    margin: auto; }
+  .admin_list .col-4 img {
+    width: 336px !important;
+    border-radius: 10px;
+    border: 1px solid white; }
+  .admin_list a:hover {
+    color: black !important; }
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .hero_details .hero_heading h1 {
+    font-size: xx-large; }
+  .hero_details .hero_info h4 {
+    font-size: large; }
+
+  .thumb {
+    padding: 10px;
+    margin: 5px;
+    height: 25vh !important; }
+    .thumb div h4 {
+      font-size: large; }
+
+  .episodes h5 {
+    font-size: medium; }
+
+  .episode_thumbnail {
+    max-width: 246px !important;
+    margin: auto; }
+
+  .duration {
+    left: 75% !important; }
+
+  #slider {
+    height: 45vh; }
+    #slider .episodes, #slider .title {
+      height: 35vh; }
+
+  .title_heading h1 {
+    font-size: xx-large; }
+  .title_heading h5 {
+    font-size: medium; }
+
+  .category {
+    font-size: x-large; }
+
+  .list {
+    height: 25vh;
+    padding: 10px; }
+    .list .col-4 i {
+      padding: 3vh; }
+    .list .col-4 img {
+      width: 246px !important; }
+    .list .col-4 .duration {
+      left: 65% !important; }
+    .list .col-8 h3 {
+      font-size: x-large; }
+    .list .col-8 h5 {
+      font-size: medium; }
+
+  .admin_list {
+    padding: 15px; }
+    .admin_list .col-4 img {
+      width: 246px !important; }
+    .admin_list .col-8 h3 {
+      font-size: x-large; }
+    .admin_list .col-8 h5 {
+      font-size: medium; } }
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 992px) and (min-width: 768px) {
+  .hero_details .hero_heading h1 {
+    font-size: x-large; }
+  .hero_details .hero_info h4 {
+    font-size: medium; }
+
+  .thumb {
+    max-height: fit-content;
+    height: 25vh !important; }
+    .thumb div h4 {
+      font-size: medium; }
+
+  .episodes h5 {
+    font-size: small; }
+
+  .episode_thumbnail {
+    max-width: 196px !important; }
+
+  #slider {
+    height: 40vh; }
+    #slider .episodes, #slider .title {
+      height: 30vh; }
+
+  .index h2 {
+    font-size: large; }
+
+  .duration {
+    left: 75% !important; }
+    .duration h6 {
+      font-size: small; }
+
+  .title_heading h1 {
+    font-size: x-large; }
+  .title_heading h5 {
+    font-size: small; }
+
+  .category {
+    font-size: large; }
+
+  .list {
+    height: 20vh;
+    padding: 10px; }
+    .list .col-4 img {
+      width: 196px !important; }
+    .list .col-4 .index h2 {
+      font-size: x-large; }
+    .list .col-4 .duration {
+      left: 65% !important;
+      bottom: 5%; }
+      .list .col-4 .duration h6 {
+        font-size: small; }
+    .list .col-8 h3 {
+      font-size: large; }
+    .list .col-8 h5 {
+      font-size: small; }
+
+  .admin_list {
+    padding: 15px; }
+    .admin_list .col-4 img {
+      width: 196px !important; }
+    .admin_list .col-8 {
+      padding: 20px; }
+      .admin_list .col-8 h3 {
+        font-size: large; }
+      .admin_list .col-8 h5 {
+        font-size: small; } }
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 767px) and (min-width: 576px) {
+  .hero_details .hero_heading h1 {
+    font-size: large; }
+  .hero_details .hero_info h4 {
+    font-size: small; }
+
+  .thumb {
+    max-height: fit-content;
+    height: 22.5vh !important; }
+    .thumb div h4 {
+      font-size: medium; }
+
+  .episodes h5 {
+    font-size: small; }
+
+  .episode_thumbnail {
+    max-width: 168px !important; }
+
+  #slider {
+    height: 35vh; }
+    #slider .episodes, #slider .title {
+      height: 25vh; }
+
+  .index h2 {
+    font-size: small; }
+
+  .duration {
+    left: 75% !important; }
+    .duration h6 {
+      font-size: x-small; }
+
+  .title_heading h1 {
+    font-size: large; }
+  .title_heading h5 {
+    font-size: x-small; }
+
+  .category {
+    font-size: large; }
+
+  .list {
+    height: 17.5vh; }
+    .list .col-4 img {
+      width: 155px !important; }
+    .list .col-4 .index {
+      padding: 1vh; }
+      .list .col-4 .index h2 {
+        font-size: large; }
+    .list .col-4 .duration {
+      padding: 1vh;
+      left: 75% !important;
+      bottom: 5%; }
+      .list .col-4 .duration h6 {
+        font-size: x-small; }
+    .list .col-8 h3 {
+      font-size: small; }
+    .list .col-8 h5 {
+      font-size: x-small; }
+
+  .admin_list .col-4 img {
+    width: 150px !important; }
+  .admin_list .col-8 {
+    padding: 20px; }
+    .admin_list .col-8 h3 {
+      font-size: medium; }
+    .admin_list .col-8 h5 {
+      font-size: x-small; } }
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 575px) {
+  .hero {
+    height: 75% !important; }
+
+  .hero_details {
+    width: 80vw;
+    padding: 1vh;
+    margin: 1vh; }
+    .hero_details div {
+      margin: 1vh; }
+    .hero_details .hero_heading h1 {
+      font-size: large; }
+    .hero_details .hero_info h4 {
+      font-size: medium; }
+    .hero_details .hero_heading {
+      padding: 2vh; }
+    .hero_details .hero_info {
+      padding: 1vh; }
+
+  .hero_details .play_button i {
+    padding: 20px; }
+
+  .fa-3x {
+    font-size: 2rem; }
+
+  .thumb {
+    height: 25vh !important;
+    margin: 5px;
+    padding: 5px; }
+    .thumb div {
+      width: fit-content; }
+      .thumb div h4 {
+        margin: auto;
+        padding: 5px;
+        font-size: x-small; }
+
+  #slider {
+    display: none; }
+
+  .category {
+    font-size: large; }
+
+  .list {
+    height: 20%;
+    margin: 1vh; }
+    .list .col-4 a i, .list .col-4 a .index, .list .col-4 a .duration {
+      display: none; }
+    .list .col-4 a img {
+      height: 100% !important;
+      width: 100% !important;
+      border-radius: 0px !important; }
+    .list .col-8 h3 {
+      font-size: small; }
+    .list .col-8 h5 {
+      font-size: x-small; }
+
+  .admin_list {
+    padding: 5px !important; }
+    .admin_list .col-4 img {
+      width: 100% !important; }
+    .admin_list .col-8 {
+      padding: 0px; }
+      .admin_list .col-8 h3 {
+        font-size: small; }
+      .admin_list .col-8 h5 {
+        font-size: xx-small; }
+
+  #admin_search {
+    border: none !important;
+    padding: 0px !important;
+    margin: auto; } }
+
+/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,28 @@
+{% extends "layout/layout.html" %}
+{% block title %}
+Searched : {{searched}}
+{% endblock %}
+{% block content %}
+<style>
+    .hero {
+        height: auto !important;
+        padding-bottom: 100px;
+    }
+</style>
+<div class="container">
+    <div class="container p-3">
+        <h2>Searched : "{{searched}}" </h2>
+    </div>
+    <div class="row search_result">
+        {% for playlist in playlists %}
+        <div class="col-3 thumb" style="background-image:url('{{playlist.thumbnail}}');">
+            <div>
+                <a href="{% url 'playlist' id=playlist.id %}">
+                    <h4>{{playlist.name}}</h4>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+    {% endblock %}

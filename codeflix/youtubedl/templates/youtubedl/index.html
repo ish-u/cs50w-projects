@@ -1,0 +1,186 @@
+{% extends "layout/layout.html" %}
+{% block title %}
+codeflix
+{% endblock %}
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.6/handlebars.min.js" integrity="sha256-usTqAE1ywvdMtksWzdeWzD75MsfJN0h0U7y2NtZL3N0=" crossorigin="anonymous"></script>
+{% load static %}
+<script src="{% static 'youtube.dl/index.js' %}"></script>
+<!-- Setting Hero Image -->
+<style>
+    .hero{
+        background-image: linear-gradient(rgba(0,0,0,0), rgba(0, 0, 0, 1)),url('{{random_playlist.thumbnail}}');
+    }
+</style>
+<!--EPISODES TEMPLATE-->
+<script id="episodes_template" type="text/x-handlebars-template">
+    <div class="row justify-content-center" style="margin:10px; padding:5px; height:inherit;">
+        <div>
+            <a href="{% url 'video'  %}{% verbatim %}{{video_id}}">
+                <div style="position: relative;">
+                    <img src="{{thumbnail}}" class="episode_thumbnail">
+                    <div class="index" style="position:absolute; bottom:5%; left:5%;"><h2>{{number}}</h2></div>
+                    <div class="duration" style="position:absolute; bottom:2.5%; left:80%;"><h6>{{duration}}m</h6></div>
+                </div>
+            </a>
+            <div style="margin-top: 5px;">
+            <h5>{{title}}</h5>
+        </div>
+        </div>
+    </div>
+    {% endverbatim %}  
+</script>
+<!--DETAILS TEMPLATE-->
+<script id="title_template" type="text/x-handlebars-template">
+    {% verbatim %}
+        <div class="title_heading">
+            <div>
+                <h1>{{name}}</h1>
+            </div>
+            <div>
+                <h5><i class="fas fa-clock"></i>&Tab;&Tab;&Tab;{{duration}}hrs. (appx.)</h5>
+                <h5><i class="fas fa-star-half-alt"></i>&Tab;&Tab;&Tab;{{average_rating}}/5.00</h5>
+                <h5><i class="fas fa-calendar"></i>&Tab;&Tab;&Tab;{{date}}</h5>
+            </div>
+        </div>
+    {% endverbatim %}
+</script>
+<!--SLIDER TEMPLATE-->
+<script id="slider_template" type="text/x-handlebars-template">
+    {% verbatim %}
+        <div style="position: absolute; top:0%; right:2%;">
+            <button type="button" class="btn btn-outline-light close" id="slider_close">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="episodes appear">
+        </div>
+        <div class="title appear">  
+        </div>
+        <div class="buttonGroup appear">
+            <div class="row justify-content-center" style="text-align: center;">
+                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                    <label class="btn btn-outline-light ">
+                    <input class="title_button" type="radio" name="options" id="option1" autocomplete="off" checked> Details
+                    </label>
+                    <label  class="btn btn-outline-light">
+                    <input class="episodes_button" type="radio" name="options" id="option2" autocomplete="off"> Episodes
+                    </label>
+            </div>
+        </div>
+    {% endverbatim %}
+</script>
+<!-- hero image details -->
+<div class="hero_details">
+    <div class="hero_heading">
+        <h1>{{random_playlist.name}}</h1>
+    </div>
+    <div class="hero_info">
+        <h4><i class="fas fa-clock"></i>&Tab;&Tab;&Tab;{{random_playlist.duration}}hrs. (appx.)</h4>
+        <h4><i class="fas fa-star-half-alt"></i>&Tab;&Tab;&Tab;{{random_playlist.average_rating}}/5.00</h4>
+        <h4><i class="fas fa-calendar"></i>&Tab;&Tab;&Tab;{{random_playlist.date.year}}</h4>
+    </div>
+    <div class="play_button">
+        <a href="{% url 'video' id=random_playlist.videos.all.first.video_id %}"><i class="fas fa-play fa-3x"></i></a>
+        <a href="{% url 'playlist' id=random_playlist.id %}"><i class="fas fa-info fa-3x"></i></a>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div>
+        <div class="container-fluid">
+            <h1 class="category">Latest from CS50</h1>
+        </div>
+    </div>
+    <div>
+        <div class="container-fluid" style="display:flex; overflow-x:scroll; overflow-y:hidden;">
+            {% for playlist in cs50_playlists %}
+            <div class="col-3 thumb" data-id="{{playlist.id}}" data-url="{% url 'playlist' id=playlist.id %}" style="background-image:url('{{playlist.thumbnail}}');"> 
+                <div>
+                    <h4>{{playlist.name}}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div>
+        <div class="container-fluid">
+            <h1 class="category"> All CS50 Walkthroughs</h1>
+        </div>
+    </div>
+    <div>
+        <div class="container-fluid" style="display:flex; overflow-x:scroll; overflow-y:hidden;">
+            {% for playlist in cs50_wt_playlists %}
+            <div class="col-3 thumb" data-id="{{playlist.id}}" data-url="{% url 'playlist' id=playlist.id %}" style="background-image:url('{{playlist.thumbnail}}');"> 
+                <div>
+                    <h4>{{playlist.name}}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div>
+        <div class="container-fluid">
+            <h1 class="category">Latest from MITOCW</h1>
+        </div>
+    </div>
+    <div>
+        <div class="container-fluid" style="display:flex; overflow-x:scroll; overflow-y:hidden;">
+            {% for playlist in mit_playlists %}
+            <div class="col-3 thumb" data-id="{{playlist.id}}" data-url="{% url 'playlist' id=playlist.id %}" style="background-image:url('{{playlist.thumbnail}}');"> 
+                <div>
+                    <h4>{{playlist.name}}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div>
+        <div class="container-fluid">
+            <h1 class="category">MIT 6.xxx (EE & CS)</h1>
+        </div>
+    </div>
+    <div>
+        <div class="container-fluid" style="display:flex; overflow-x:scroll; overflow-y:hidden;">
+            {% for playlist in mit_6_playlists %}
+            <div class="col-3 thumb" data-id="{{playlist.id}}" data-url="{% url 'playlist' id=playlist.id %}" style="background-image:url('{{playlist.thumbnail}}');"> 
+                <div>
+                    <h4>{{playlist.name}}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div>
+        <div class="container-fluid">
+            <h1 class="category">MIT 18.xxx (Math's)</h1>
+        </div>
+    </div>
+    <div>
+        <div class="container-fluid" style="display:flex; overflow-x:scroll; overflow-y:hidden;">
+            {% for playlist in mit_18_playlists %}
+            <div class="col-3 thumb" data-id="{{playlist.id}}" data-url="{% url 'playlist' id=playlist.id %}" style="background-image:url('{{playlist.thumbnail}}');"> 
+                <div>
+                    <h4>{{playlist.name}}</h4>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

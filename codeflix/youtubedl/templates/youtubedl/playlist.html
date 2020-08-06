@@ -1,0 +1,46 @@
+{% extends "layout/layout.html" %}
+{% block title %}
+{{playlist.name}}
+{% endblock %}
+{% block content %}
+<style>
+    .hero{
+        background-image: linear-gradient(rgba(0,0,0,0), rgba(0, 0, 0, 1)),url('{{playlist.thumbnail}}');
+    }
+    .hero_details{
+        padding:1vh;
+    }
+</style>
+<div class="hero_details">
+    <div class="hero_heading">
+        <h1>{{playlist.name}}</h1>
+    </div>
+    <div class="hero_info">
+        <div>
+            <h4><i class="fas fa-clock"></i>&Tab;&Tab;&Tab;{{playlist.duration}}hrs. (appx.)</h4>
+            <h4><i class="fas fa-star-half-alt"></i>&Tab;&Tab;&Tab;{{playlist.average_rating}}/5.00</h4>
+            <h4><i class="fas fa-calendar"></i>&Tab;&Tab;&Tab;{{playlist.date.year}}</h4>
+        </div>
+    </div>
+</div>
+<div class="container">
+    {% for video in playlist.videos.all %}
+    <div class="row list">
+        <div class="col-4" style="position: relative;">
+            <a href="{% url 'video' id=video.video_id %}">
+                <i class="fas fa-play fa-2x"></i>
+                <img src="{{video.thumbnail}}" alt="">
+                <div class="index" style="position:absolute; bottom:5%; left:10%;"><h2>{{forloop.counter}}</h2></div>
+                <div class="duration" style="position:absolute; bottom:2.5%; left:75%;"><h6>{{video.duration}}m</h6></div>
+            </a>
+        </div>
+        <div class="col-8">
+            <a href="{% url 'video' id=video.video_id %}">
+                <h3>{{video.title}}</h3>
+            </a>
+            <h5><i class="fas fa-calendar-day"></i>&Tab;{{video.date}}</h5>
+        </div>
+    </div> 
+    {% endfor %}
+</div>
+{% endblock %}

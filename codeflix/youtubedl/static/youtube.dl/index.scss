@@ -1,0 +1,701 @@
+
+//layout.html
+html,body {
+    height: 100%;
+    background:rgba(0, 0, 0, 1);
+    color:white;
+}
+.nav-link {
+    font-size: 16px;
+}
+.hero {
+    height: 90%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+::-webkit-scrollbar {
+    display: none; 
+}
+a{
+    text-decoration: none;
+    color: white;
+}
+a:hover{
+    text-decoration: none;
+    color: white;
+}
+#search{
+    border: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    margin: auto;
+    border-top: 1px solid  rgba(255,255,255, 0.5);
+    border-bottom: 1px solid  rgba(255,255,255, 0.5);
+    border-left: 1px solid rgba(255,255,255, 0.5);
+    border-right: none;
+}
+#search:focus{
+    background-color:rgba(255,255,255, 1);
+    color: black;
+}
+.nav-link{
+    color: white !important;   
+}
+nav{
+    background-color: rgba(20,20,20,0.5);
+    li{
+        padding-right: 10px;
+        margin: auto;
+    }
+    .navbar-brand{
+        font-size: x-large;
+    }
+    .btn-outline-light{
+        background-color: rgba(0, 0, 0, 0.5);
+        border-color:  rgba(255,255,255, 0.5);
+        border-left: none;
+    }
+}
+
+//index.html
+@keyframes appear{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+@keyframes disappear{
+    from{
+        opacity: 1;
+    }
+    to{
+        opacity: 0;
+    }
+}
+
+.container-fluid{
+    padding: 10px;
+}
+.thumb{
+    background-position: center;
+    background-size: cover; 
+    background-repeat: no-repeat;
+    padding: 10px;
+    margin: 5px;
+    max-height: 30vh;
+    height: 30vh;
+    display: flex;
+    flex-direction: column-reverse;
+    border:white solid 1px;
+    border-radius: 5px;
+    div{
+        margin: auto;
+        h4{
+            padding: 10px;
+            background-color: black;
+            border-radius: 5px;
+        }
+    }
+}
+.appear{
+    animation-name: appear;
+    animation-duration: 700ms;
+}
+.disappear{
+    animation-name: disappear;
+    animation-duration: 300ms;
+}
+
+#slider{
+    background-position: center;
+    background-size: cover; 
+    background-repeat: no-repeat;
+    display: grid;
+    position: relative;
+    max-height: 50vh;
+    height: 50vh;
+    scroll-margin: 20px;
+}
+
+.episodes,.title{
+    display: none;
+    max-height: 40vh;
+    height: 40vh;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.episodes{
+    margin-top:auto;
+    h2,h6{
+        padding:10px;
+        border-radius: 5px;
+        background-color: black;
+        color: white;
+    }
+}
+
+.title{
+    .title_heading{
+        height: inherit;
+        width: 40%;
+        div{
+            padding-left: 5%;
+            margin: 20px;
+        }
+    }
+}
+
+.buttonGroup{
+    max-height: 10vh;
+    margin: auto;
+}
+
+.episode_thumbnail{
+    max-width: 336px;
+    margin: auto;
+    padding: 1px;
+    border: 1px white solid;
+}
+
+.hero_details{
+    position: absolute;
+    margin: auto;
+    padding: 1vh;
+    left: 50%;
+    top:50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    div{
+        margin: 2.5vh;
+    }
+    .hero_heading,.hero_info{
+        padding: 3vh;
+        background-color: black;
+        border-radius: 20px;
+    }
+    .play_button{
+        text-align: center;
+        margin: auto;
+        i{
+            padding: 30px;
+        }
+    }
+    
+}
+
+.category{
+    font-size: xx-large;
+}
+//playlist.html
+.list{
+    max-height: 40vh;
+    height: auto;
+    margin: auto;
+    padding: 10px;
+    div{
+        height: auto;
+        margin: auto;
+        div{
+            padding:10px;
+            border-radius: 5px;
+            background-color: black;
+            color: white;
+        }
+    }
+    .col-4{
+        i{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            padding: 3vh;
+            transform: translate(-50%, -50%);
+        }
+        img{
+            width: 336px !important;
+            border-radius: 10px;
+            border: 1px solid white;
+        }
+    }
+    .col-4:hover{
+       i{
+           color: black;
+           background-color: white;
+           border-radius: 50%;
+       }
+    }
+    
+    
+}
+
+//search.html
+.search_result{
+    justify-content: center;
+    .col-3{
+        border: white 2.5px solid;
+    }
+}
+
+//admin-dashboard
+.admin_list{
+    margin: auto;
+    padding: 10px;
+    div{
+        height: auto;
+        margin: auto;
+    }
+    .col-4{
+        img{
+            width: 336px !important;
+            border-radius: 10px;
+            border: 1px solid white;
+        }
+    }
+    a:hover{
+        color: black !important;
+    }
+}
+
+//MEDIA QUERIES
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    //layout.html
+    .hero_details{
+        .hero_heading{
+            h1{
+                font-size: xx-large;
+            }
+        }
+        .hero_info{
+            h4{
+                font-size: large;
+            }
+        }
+    }
+    //index.html
+    .thumb{
+        padding: 10px;
+        margin: 5px;
+        height: 25vh !important;
+        div{
+            h4{
+                font-size: large;
+            }
+        }
+    }
+    .episodes{
+        h5{
+            font-size: medium;
+        }
+    }
+    .episode_thumbnail{
+        max-width: 246px !important;
+        margin: auto;
+    }
+    .duration{
+        left: 75% !important;
+    }
+    #slider{
+        height: 45vh;
+        .episodes,.title{
+            height: 35vh;
+        }
+    }
+    .title_heading{
+        h1{
+            font-size: xx-large;
+        }
+        h5{
+            font-size: medium;
+        }
+    }
+    .category{
+        font-size: x-large;
+    }
+    //playlist.html
+    .list{
+        height: 25vh;
+        padding: 10px;
+        .col-4{
+            i{
+                padding: 3vh;
+            }
+            img{
+                width: 246px !important;
+
+            }
+            .duration{
+                left: 65% !important;
+            }
+        }
+        .col-8{
+            h3{
+                font-size: x-large;
+            }
+            h5{
+                font-size: medium;
+            }
+        }
+        
+    }
+    //admin-dashboard
+    .admin_list{
+        padding: 15px;
+        .col-4{
+            img{
+                width: 246px !important;
+            }
+        }
+        .col-8{
+            h3{
+                font-size: x-large;
+            }
+            h5{
+                font-size: medium;
+            }
+        }
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 992px) and (min-width: 768px){
+    .hero_details{
+        .hero_heading{
+            h1{
+                font-size: x-large;
+            }
+        }
+        .hero_info{
+            h4{
+                font-size: medium;
+            }
+        }
+    }
+    //index.html
+    .thumb{
+        max-height: fit-content;
+        height: 25vh !important;
+        div{
+            h4{
+                font-size: medium;
+            }
+        }
+    }
+    .episodes{
+        h5{
+            font-size:small;
+        }
+    }
+    .episode_thumbnail{
+        max-width: 196px !important;
+    }
+    #slider{
+        height: 40vh;
+        .episodes,.title{
+            height: 30vh;
+        }
+    }
+    .index{
+        h2{
+            font-size: large;
+        }
+    }
+    .duration{
+        h6{
+            font-size: small;
+        }
+        left: 75% !important;
+    }
+    .title_heading{
+        h1{
+            font-size: x-large;
+        }
+        h5{
+            font-size: small;
+        }
+    }
+    .category{
+        font-size: large;
+    }
+    //playlist.html
+    .list{
+        height: 20vh;
+        padding: 10px;
+        .col-4{
+            img{
+                width: 196px !important;
+
+            }
+            .index{
+                h2{
+                    font-size: x-large;
+                }
+            }
+            .duration{
+                h6{
+                    font-size: small;
+                }
+                left: 65% !important;
+                bottom: 5%;
+            }
+        }
+        .col-8{
+            h3{
+                font-size: large;
+            }
+            h5{
+                font-size: small;
+            }
+        }
+        
+    }
+    //admin-dashboard
+    .admin_list{
+        padding: 15px;
+        .col-4{
+            img{
+                width: 196px !important;
+            }
+        }
+        .col-8{
+            padding: 20px;
+            h3{
+                font-size: large;
+            }
+            h5{
+                font-size: small;
+            }
+        }
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 767px) and (min-width: 576px){
+    .hero_details{
+        .hero_heading{
+            h1{
+                font-size: large;
+            }
+        }
+        .hero_info{
+            h4{
+                font-size: small;
+            }
+        }
+    }
+    //index.html
+    .thumb{
+        max-height: fit-content;
+        height: 22.5vh !important;
+        div{
+            h4{
+                font-size: medium;
+            }
+        }
+    }
+    .episodes{
+        h5{
+            font-size:small;
+        }
+    }
+    .episode_thumbnail{
+        max-width: 168px !important;
+    }
+    #slider{
+        height: 35vh;
+        .episodes,.title{
+            height: 25vh;
+        }
+    }
+    .index{
+        h2{
+            font-size: small;
+        }
+    }
+    .duration{
+        h6{
+            font-size: x-small;
+        }
+        left: 75% !important;
+    }
+    .title_heading{
+        h1{
+            font-size: large;
+        }
+        h5{
+            font-size: x-small;
+        }
+    }
+    .category{
+        font-size: large;
+    }
+    //playlist.html
+    .list{
+        height: 17.5vh;
+        // width: fit-content;
+        .col-4{
+            img{
+                width: 155px !important;
+            }
+            .index{
+                padding: 1vh;
+                h2{
+                    font-size: large;
+                }
+            }
+            .duration{
+                padding: 1vh;
+                h6{
+                    font-size: x-small;
+                }
+                left: 75% !important;
+                bottom: 5%;
+            }
+        }
+        .col-8{
+            h3{
+                font-size: small;
+            }
+            h5{
+                font-size: x-small;
+            }
+        }
+        
+    }
+    //admin-dashboard
+    .admin_list{
+        .col-4{
+            img{
+                width: 150px !important;
+            }
+        }
+        .col-8{
+            padding: 20px;
+            h3{
+                font-size: medium;
+            }
+            h5{
+                font-size: x-small;
+            }
+        }
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 575px) {
+    .hero{
+        height: 75% !important;
+    }
+    .hero_details{
+        width: 80vw;
+        padding: 1vh;
+        margin: 1vh;
+        div{
+            margin: 1vh;
+        }
+        .hero_heading{
+            h1{
+                font-size: large;
+            }
+        }
+        .hero_info{
+            h4{
+                font-size: medium;
+            }
+        }
+        .hero_heading{
+            padding: 2vh;
+        }
+        .hero_info{
+            padding: 1vh;
+        }
+    }
+    .hero_details .play_button i {
+        padding: 20px;
+    }
+    .fa-3x{
+        font-size: 2rem;
+    }
+    //index.html
+    .thumb{
+        height: 25vh !important;
+        margin: 5px;
+        padding: 5px;
+        div{
+            width: fit-content;
+            h4{
+                margin: auto;
+                padding: 5px;
+                font-size: x-small;
+            }
+        }
+    }
+    #slider{
+        display: none;
+    }
+    .category{
+        font-size: large;
+    }
+    //playlist.html
+    .list{
+        height: 20%;
+        margin: 1vh;
+        .col-4{
+            a{
+                i,.index,.duration{
+                    display: none;
+                }
+                img{
+                    height: 100% !important;
+                    width: 100% !important;
+                    border-radius: 0px !important;
+                }
+            }    
+            
+        }
+        .col-8{
+            h3{
+                font-size: small;
+            }
+            h5{
+                font-size: x-small;
+            }
+        }
+        
+    }
+    //admin-dashboard
+    .admin_list{
+        padding: 5px !important;
+        .col-4{
+            img{
+                width: 100% !important;
+            }
+        }
+        .col-8{
+            padding: 0px;
+            h3{
+                font-size: small;
+            }
+            h5{
+                font-size: xx-small;
+            }
+        }
+    }
+    #admin_search{
+        border:none !important;
+        padding: 0px !important;
+        margin: auto;
+    }
+
+}
+
+
+// /* Extra small devices (phones, 600px and down) */
+// @media only screen and (max-width: 600px) {...}
+
+
+
+
+

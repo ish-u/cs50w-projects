@@ -1,0 +1,74 @@
+{% extends "layout/layout.html" %}
+{% block title %}
+admin-dashboard
+{% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+{% load admin_urls %}
+<style>
+    .hero {
+        height: auto !important;
+        padding-bottom: 50px;
+    }
+    html{
+        height: auto;
+        background: rgba(20, 20, 20, 1) !important;
+        background-color: rgba(20, 20, 20, 1) !important;
+    }
+    body{
+        height: inherit;
+        background: rgba(20, 20, 20, 0.7) !important;
+        background-color: rgba(20, 20, 20, 0.7) !important;
+    }
+    nav{
+        background-color: black;
+    }
+</style>
+<div class="container p-5" id="add_playlist">
+    <div class="row justify-content-center" style="border:5px white solid; border-radius:10px;">
+        <form method="post" style="width: 100%; margin:2.5%" >
+            {%  csrf_token %}
+            <div class="form-group form">
+                <h3>Add a New Course/Playlist :-</h3>
+                {{get_playlist|crispy}}
+                <button class="btn btn-outline-light" type="submit">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="container p-3" style="border: 5px solid white;  border-radius:10px;" id="admin_search">
+    <div class="row" style="margin: auto; padding:25px">
+        <div class="col">
+            <h3>Search Course/Playlist :-</h3>
+            <form method="POST" style="margin-top:25px;">
+                {% csrf_token %}
+                <div class="input-group">
+                    <input class="form-control" id="search" name="search" type="search" placeholder="Search" value="{{search}}" aria-label="Search">
+                    <div class="input-group-append">
+                    <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% for playlist in playlists %}
+    <div class="row admin_list">
+        <div class="col-4" style="position: relative;">
+            <a href="{% url 'playlist' id=playlist.id %}">
+                <img src="{{playlist.thumbnail}}" alt="" >
+            </a>
+        </div>
+        <div class="col-8">
+            <h3>{{playlist.name}}</h3>
+            <h5><i class="fas fa-calendar-day"></i>&Tab;{{playlist.date}}</h5>
+            <a class="btn btn-outline-light" href="{%  url 'admin:youtubedl_playlist_change' playlist.id  %}">
+                <i class="far fa-edit"></i>&Tab;EDIT
+            </a>
+            <a class="btn btn-outline-light" href="{% url 'remove' playlist.id  %}" >
+                <i class="far fa-trash-alt" name="remove" value={{playlist.id}}></i>&Tab;REMOVE
+            </a>
+        </div>
+    </div> 
+    {% endfor %}
+</div>
+{% endblock %}
