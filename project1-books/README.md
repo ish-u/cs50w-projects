@@ -4,6 +4,8 @@ Web Programming with Python and JavaScript
 
 The App is named infinity|book|reviews
 
+[Video Demo](https://www.youtube.com/watch?v=LrAYS7XoGaY&list=PLlsJ6i0JRzhfzzqjuQJH2N-f6jkcycsrA&index=3&t=15s)
+
 How to Run:-
 * Run `pip3 install -r requirements.txt` in your terminal window to make sure that all of the necessary Python packages (Flask and SQLAlchemy, for instance) are installed.
 * Visit the PostgreSQL [https://docs.cs50.net/web/2020/x/projects/1/project1.html](https://docs.cs50.net/web/2020/x/projects/1/project1.html) for steps to setup Database.
